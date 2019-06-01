@@ -2,3 +2,9 @@ Maven -> Java Web Application
 
 pom.xml
 Dependencies after javax.mail are required for Spring framework
+
+Setup SpringFramework in xml format
+New file(standard deployment descriptor)web.xml
+Added dispatcher servlet in web.xml
+New SpringConfiguration file named dispatcher-servlet
+Use context namespace
