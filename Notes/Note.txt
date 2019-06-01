@@ -1,1 +1,4 @@
-Java Web Application
+Maven -> Java Web Application
+
+pom.xml
+Dependencies after javax.mail are required for Spring framework
