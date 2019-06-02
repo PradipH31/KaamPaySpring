@@ -8,19 +8,21 @@ package com.cibt.kaampay.repository.impl;
 import com.cibt.kaampay.entity.UserLog;
 import com.cibt.kaampay.repository.UserLogRepository;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
  * @author HP B&O
  */
-public class UserLogRepositoryImpl implements UserLogRepository{
+public class UserLogRepositoryImpl implements UserLogRepository {
 
+    @Autowired
     private JdbcTemplate template;
-    
+
     @Override
     public void insert(UserLog model) throws Exception {
-        String sql="insert into tbl_user_logs(user_id) values(?)";
+        String sql = "insert into tbl_user_logs(user_id) values(?)";
         template.update(sql, new Object[]{model.getUser().getId()});
     }
 
@@ -38,5 +40,5 @@ public class UserLogRepositoryImpl implements UserLogRepository{
     public UserLog findById(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

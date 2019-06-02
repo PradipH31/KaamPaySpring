@@ -11,6 +11,7 @@ import com.cibt.kaampay.repository.ProjectRepository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,6 +21,7 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class ProjectRepositoryImpl implements ProjectRepository {
 
+    @Autowired
     private JdbcTemplate template;
 
     @Override
