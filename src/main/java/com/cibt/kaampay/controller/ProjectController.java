@@ -26,7 +26,7 @@ public class ProjectController {
     @GetMapping
     @ResponseBody
     public List<Project> index() throws Exception {
-        List<Project> projects=new ArrayList<>();
+        List<Project> projects = new ArrayList<>();
         Project project = new Project();
         project.setId(1);
         project.setName("klasjf");
@@ -37,4 +37,10 @@ public class ProjectController {
         projects.add(project);
         return projects;
     }
+
+    @GetMapping(value = "/{id}")
+    public String detail() {
+        
+    }
+
 }
