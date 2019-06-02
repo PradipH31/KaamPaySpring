@@ -5,13 +5,14 @@
  */
 package com.cibt.kaampay.repository.impl;
 
-import com.cibt.kaampay.core.JDBCTemplate;
-import com.cibt.kaampay.core.RowMapper;
 import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.repository.UserRepositoy;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class UserRepositoryImpl implements UserRepositoy {
 
-    private JDBCTemplate<User> template = new JDBCTemplate<>();
+    private JdbcTemplate template;
 
     @Override
     public void insert(User user) throws Exception {
@@ -44,7 +45,7 @@ public class UserRepositoryImpl implements UserRepositoy {
         String sql = "select * from tbl_users";
         return template.query(sql, new RowMapper<User>() {
             @Override
-            public User mapRow(ResultSet rs) throws Exception {
+            public User mapRow(ResultSet rs, int i) throws SQLException {
                 return mapUser(rs);
             }
         });
@@ -55,13 +56,13 @@ public class UserRepositoryImpl implements UserRepositoy {
         String sql = "select * from tbl_users where id=?";
         return template.queryForObject(sql, new Object[]{id}, new RowMapper<User>() {
             @Override
-            public User mapRow(ResultSet rs) throws Exception {
+            public User mapRow(ResultSet rs, int i) throws SQLException {
                 return mapUser(rs);
             }
         });
     }
 
-    private User mapUser(ResultSet rs) throws Exception {
+    private User mapUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));
         user.setEmail(rs.getString("email"));
@@ -81,7 +82,7 @@ public class UserRepositoryImpl implements UserRepositoy {
             email, password
         }, new RowMapper<User>() {
             @Override
-            public User mapRow(ResultSet rs) throws Exception {
+            public User mapRow(ResultSet rs, int index) throws SQLException {
                 return mapUser(rs);
             }
         });
@@ -92,7 +93,7 @@ public class UserRepositoryImpl implements UserRepositoy {
         String sql = "select * from tbl_users where email=?";
         return template.queryForObject(sql, new Object[]{email}, new RowMapper<User>() {
             @Override
-            public User mapRow(ResultSet rs) throws Exception {
+            public User mapRow(ResultSet rs, int index) throws SQLException {
                 return mapUser(rs);
             }
         });

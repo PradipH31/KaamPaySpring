@@ -5,13 +5,14 @@
  */
 package com.cibt.kaampay.repository.impl;
 
-import com.cibt.kaampay.core.JDBCTemplate;
-import com.cibt.kaampay.core.RowMapper;
 import com.cibt.kaampay.entity.EmailTemplate;
 import com.cibt.kaampay.repository.EmailTemplateRepository;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class EmailTemplateRepositoryImpl implements EmailTemplateRepository {
 
-    private JDBCTemplate<EmailTemplate> template = new JDBCTemplate<>();
+    private JdbcTemplate template;
 
     @Override
     public void insert(EmailTemplate model) throws Exception {
@@ -36,7 +37,7 @@ public class EmailTemplateRepositoryImpl implements EmailTemplateRepository {
                 + "body=?,modified_date=CURRENT_TIMESTAMP,modified_by=? where id=?";
         template.update(sql, new Object[]{
             model.getTitle(), model.getSlug(), model.getSubject(),
-            model.getBody(), model.getModifiedBy(),model.getId()
+            model.getBody(), model.getModifiedBy(), model.getId()
         });
     }
 
@@ -45,7 +46,7 @@ public class EmailTemplateRepositoryImpl implements EmailTemplateRepository {
         String sql = "select * from vw_email_templates";
         return template.query(sql, new RowMapper<EmailTemplate>() {
             @Override
-            public EmailTemplate mapRow(ResultSet rs) throws Exception {
+            public EmailTemplate mapRow(ResultSet rs, int i) throws SQLException {
                 EmailTemplate template = new EmailTemplate();
                 template.setId(rs.getInt("id"));
                 template.setTitle(rs.getString("email_title"));
@@ -65,7 +66,7 @@ public class EmailTemplateRepositoryImpl implements EmailTemplateRepository {
         String sql = "select * from vw_email_templates where id=?";
         return template.queryForObject(sql, new Object[id], new RowMapper<EmailTemplate>() {
             @Override
-            public EmailTemplate mapRow(ResultSet rs) throws Exception {
+            public EmailTemplate mapRow(ResultSet rs, int i) throws SQLException {
                 EmailTemplate template = new EmailTemplate();
                 template.setId(rs.getInt("id"));
                 template.setTitle(rs.getString("email_title"));

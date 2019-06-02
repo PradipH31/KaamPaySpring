@@ -5,13 +5,14 @@
  */
 package com.cibt.kaampay.repository.impl;
 
-import com.cibt.kaampay.core.JDBCTemplate;
-import com.cibt.kaampay.core.RowMapper;
 import com.cibt.kaampay.entity.Project;
 import com.cibt.kaampay.entity.User;
 import com.cibt.kaampay.repository.ProjectRepository;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ProjectRepositoryImpl implements ProjectRepository {
 
-    private JDBCTemplate<Project> template = new JDBCTemplate<>();
+    private JdbcTemplate template;
 
     @Override
     public void insert(Project model) throws Exception {
@@ -41,7 +42,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         String sql = "select * from tbl_projects";
         return template.query(sql, new RowMapper<Project>() {
             @Override
-            public Project mapRow(ResultSet rs) throws Exception {
+            public Project mapRow(ResultSet rs, int i) throws SQLException {
                 Project project = new Project();
                 project.setId(rs.getInt("id"));
                 project.setName(rs.getString("project_name"));
@@ -61,7 +62,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         String sql = "select * from tbl_projects where id=?";
         return template.queryForObject(sql, new Object[]{id}, new RowMapper<Project>() {
             @Override
-            public Project mapRow(ResultSet rs) throws Exception {
+            public Project mapRow(ResultSet rs, int i) throws SQLException {
                 Project project = new Project();
                 project.setId(rs.getInt("id"));
                 project.setName(rs.getString("project_name"));

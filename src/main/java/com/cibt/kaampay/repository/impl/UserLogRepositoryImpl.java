@@ -5,10 +5,10 @@
  */
 package com.cibt.kaampay.repository.impl;
 
-import com.cibt.kaampay.core.JDBCTemplate;
 import com.cibt.kaampay.entity.UserLog;
 import com.cibt.kaampay.repository.UserLogRepository;
 import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class UserLogRepositoryImpl implements UserLogRepository{
 
-    private JDBCTemplate<UserLog> template=new JDBCTemplate<>();
+    private JdbcTemplate template;
     
     @Override
     public void insert(UserLog model) throws Exception {
