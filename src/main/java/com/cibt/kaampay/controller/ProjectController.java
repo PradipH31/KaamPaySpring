@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,8 +40,9 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public String detail() {
-        
+    @ResponseBody
+    public String detail(@PathVariable("id") int id) {
+        return "" + id * 5;
     }
 
 }
