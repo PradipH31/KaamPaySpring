@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProjectController {
 
     @GetMapping
-    public String index(HttpServletRequest request) throws Exception {
+    public String index(Model model) throws Exception {
         List<Project> projects = new ArrayList<>();
         Project project = new Project();
         project.setId(1);
@@ -36,7 +36,7 @@ public class ProjectController {
         project.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-07-15"));
         project.setStatus(true);
         projects.add(project);
-        request.setAttribute("projects", projects);
+        model.addAttribute("projects", projects);
         return "admin/views/projects/index";
     }
 
