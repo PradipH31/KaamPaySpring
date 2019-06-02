@@ -12,10 +12,39 @@ Use context namespace
 Set bean viewResolver for prefix and suffix
 
 Functions in controller can read values from the post method only
-This process allows access of values from get method(getting 1):
+This process allows access of values from get method/post method(getting 1):
 
 @GetMapping(value="/{varName1}"/{varName2})
 public String detail(@pathVariable('varName1')Class/Type var,
 					  @PathVariable('varName2))Class/Type var2)
 Implicitly cast
 sbc.com/edit/1
+---------------------------------------------------------------
+
+When using functions like index(),
+if we use:
+@GetMapping
+@RequestBody
+public UserLog index(@ModelAttribute("UserLogFromForm") UserLog log){
+	return log;
+}
+What's happening is we are receiving a UserLog object(line 28) from the request, then we are returning the same userLog to the browser
+In use:
+----------------------------------------------
+form method="post" modelAttribute=""UserLogFromForm""
+@GetMapping
+@RequestBody
+public UserLog save(@ModelAttribute("UserLog") UserLog log){
+	repo.save(log);
+}
+_________________________________________________________
+
+
+
+
+
+
+
+
+
+
